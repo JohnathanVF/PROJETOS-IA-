@@ -4,6 +4,7 @@
 ### *Grimório Gamer & Fórum de Estratégias Comunitárias*
 
 [![Author](https://img.shields.io/badge/Author-JohnathanVF-c5a059?style=for-the-badge&logo=github)](https://github.com/JohnathanVF)
+[![Live Demo](https://img.shields.io/badge/Demo-Online%20no%20GitHub%20Pages-c5a059?style=for-the-badge&logo=githubpages&logoColor=white)](https://johnathanvf.github.io/PROJETOS-IA-/)
 [![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript_5-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite_6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
