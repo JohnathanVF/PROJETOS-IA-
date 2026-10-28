@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Gamepad2, Mail, Lock, User, UserPlus, ShieldCheck } from 'lucide-react';
+import { Shield, Mail, Lock, User, UserPlus, Database } from 'lucide-react';
 
 export const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -18,7 +18,7 @@ export const Register: React.FC = () => {
     setError(null);
 
     if (!name.trim()) {
-      setError('Por favor, informe seu nome de jogador.');
+      setError('Por favor, informe seu nome de guerreiro.');
       return;
     }
     if (!email.trim()) {
@@ -26,11 +26,11 @@ export const Register: React.FC = () => {
       return;
     }
     if (password.length < 6) {
-      setError('A senha deve ter pelo menos 6 caracteres.');
+      setError('A palavra-passe deve conter ao menos 6 caracteres.');
       return;
     }
     if (password !== confirmPassword) {
-      setError('As senhas não coincidem.');
+      setError('As palavras-passe não coincidem.');
       return;
     }
 
@@ -38,117 +38,115 @@ export const Register: React.FC = () => {
     if (success) {
       navigate('/profile');
     } else {
-      setError('Erro ao criar conta. Tente novamente.');
+      setError('Erro ao registrar membro. Tente novamente.');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16 space-y-8">
+    <div className="max-w-md mx-auto px-4 py-14 space-y-6">
       {/* Cabeçalho */}
-      <div className="text-center space-y-3">
-        <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-0.5 shadow-glow-cyan">
-          <div className="w-full h-full bg-[#0d121f] rounded-[14px] flex items-center justify-center">
-            <Gamepad2 className="w-7 h-7 text-cyan-400" />
-          </div>
+      <div className="text-center space-y-2">
+        <div className="w-12 h-12 mx-auto rounded bg-[#16120b] border border-[#5a4625] flex items-center justify-center shadow-glow-gold">
+          <Shield className="w-6 h-6 text-fantasy-gold" />
         </div>
-        <h1 className="text-3xl font-black font-gamer text-white tracking-wide">
-          Criar Conta Gamer
+        <h1 className="text-2xl sm:text-3xl font-black font-cinzel text-[#f7eee1] tracking-wide">
+          Inscrever-se na Guilda
         </h1>
-        <p className="text-xs text-slate-400">
-          Junte-se à maior comunidade de guias, detonados e estratégias de jogos.
+        <p className="text-xs text-[#8c8577] font-serif">
+          Junte-se aos guardiões da sabedoria e compartilhe suas estratégias arcanas.
         </p>
       </div>
 
       {/* Formulário */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-md">
+      <div className="bg-[#10131c] border border-[#232938] rounded-lg p-5 sm:p-7 space-y-4 shadow-steam-card">
         {error && (
-          <div className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/50 text-rose-300 text-xs">
+          <div className="p-2.5 rounded bg-[#240d12] border border-[#661b29] text-[#e57d90] text-xs font-cinzel">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300">
-              Gamertag / Nome de Exibição
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Nome de Cavaleiro / Gamertag
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <User className="w-3.5 h-3.5 text-fantasy-gold absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ex: ShadowHunter, PixelMaster"
+                placeholder="Ex: Artorias, Solaire, Geralt"
                 required
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full pl-9 pr-3 py-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300">
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
               E-mail
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-3.5 h-3.5 text-fantasy-gold absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu.email@exemplo.com"
                 required
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full pl-9 pr-3 py-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold font-serif"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300">
-              Senha (mínimo 6 caracteres)
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Palavra-Passe (mínimo 6 caracteres)
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-3.5 h-3.5 text-fantasy-gold absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full pl-9 pr-3 py-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300">
-              Confirmar Senha
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Confirmar Palavra-Passe
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-3.5 h-3.5 text-fantasy-gold absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full pl-9 pr-3 py-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold text-sm shadow-glow-cyan transition-all transform hover:-translate-y-0.5"
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded bg-[#2b2214] hover:bg-[#382b18] text-fantasy-goldLight font-cinzel font-bold text-xs border border-[#6b5228] shadow-glow-gold transition-all"
           >
-            <UserPlus className="w-4 h-4" />
-            <span>Criar Minha Conta</span>
+            <UserPlus className="w-3.5 h-3.5 text-fantasy-gold" />
+            <span>Fazer Juramento & Cadastrar</span>
           </button>
         </form>
 
-        <div className="text-center pt-2">
-          <p className="text-xs text-slate-400">
-            Já possui cadastro?{' '}
-            <Link to="/login" className="text-cyan-400 hover:text-cyan-300 font-bold">
+        <div className="text-center pt-1">
+          <p className="text-xs text-[#8c8577] font-serif">
+            Já possui assento na guilda?{' '}
+            <Link to="/login" className="text-fantasy-gold hover:text-fantasy-goldLight font-cinzel font-bold">
               Faça login
             </Link>
           </p>
@@ -156,10 +154,10 @@ export const Register: React.FC = () => {
       </div>
 
       {/* Nota técnica */}
-      <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
-        <ShieldCheck className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />
-        <p>
-          Os dados de cadastro são salvos no <code>LocalStorage</code> para testes imediatos sem necessidade de configurar chaves de API externas.
+      <div className="flex items-start gap-2 p-3 rounded bg-[#0d1017] border border-[#212838] text-xs text-[#7d786d]">
+        <Database className="w-3.5 h-3.5 text-fantasy-gold flex-shrink-0 mt-0.5" />
+        <p className="font-serif">
+          Os dados cadastrados persistem em seu navegador via <code>LocalStorage</code>.
         </p>
       </div>
     </div>

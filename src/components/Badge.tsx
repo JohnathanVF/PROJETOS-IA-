@@ -3,31 +3,30 @@ import { GuideCategory, GuideDifficulty } from '../types';
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'purple' | 'cyan' | 'green' | 'amber' | 'rose' | 'slate';
+  variant?: 'gold' | 'amber' | 'crimson' | 'emerald' | 'slate';
   size?: 'sm' | 'md';
 }
 
 export const Badge: React.FC<BadgeProps> = ({ 
   children, 
-  variant = 'purple', 
+  variant = 'gold', 
   size = 'sm' 
 }) => {
   const variantStyles = {
-    purple: 'bg-purple-950/70 text-purple-300 border-purple-500/30',
-    cyan: 'bg-cyan-950/70 text-cyan-300 border-cyan-500/30',
-    green: 'bg-emerald-950/70 text-emerald-300 border-emerald-500/30',
-    amber: 'bg-amber-950/70 text-amber-300 border-amber-500/30',
-    rose: 'bg-rose-950/70 text-rose-300 border-rose-500/30',
-    slate: 'bg-slate-800/80 text-slate-300 border-slate-700/50',
+    gold: 'bg-[#1e1a12] text-[#e2cb93] border-[#5e4b28]',
+    amber: 'bg-[#21160c] text-[#e9a263] border-[#6b411d]',
+    crimson: 'bg-[#240d12] text-[#e57d90] border-[#661b29]',
+    emerald: 'bg-[#0f1f16] text-[#7ecba1] border-[#205238]',
+    slate: 'bg-[#151a24] text-[#a1a8b8] border-[#293246]',
   };
 
   const sizeStyles = {
-    sm: 'text-xs px-2.5 py-0.5',
-    md: 'text-sm px-3 py-1',
+    sm: 'text-[11px] px-2 py-0.5',
+    md: 'text-xs px-2.5 py-1',
   };
 
   return (
-    <span className={`inline-flex items-center font-medium rounded-full border backdrop-blur-sm ${variantStyles[variant]} ${sizeStyles[size]}`}>
+    <span className={`inline-flex items-center font-cinzel font-semibold rounded border tracking-wide ${variantStyles[variant]} ${sizeStyles[size]}`}>
       {children}
     </span>
   );
@@ -36,11 +35,11 @@ export const Badge: React.FC<BadgeProps> = ({
 export const CategoryBadge: React.FC<{ category: GuideCategory; size?: 'sm' | 'md' }> = ({ category, size = 'sm' }) => {
   const getVariant = (): BadgeProps['variant'] => {
     switch (category) {
-      case 'Detonado Completo': return 'cyan';
-      case 'Builds & Equipamentos': return 'purple';
-      case 'Chefes & Bosses': return 'rose';
-      case 'Dicas & Truques': return 'green';
-      case 'Segredos & Conquistas': return 'amber';
+      case 'Detonado Completo': return 'gold';
+      case 'Builds & Equipamentos': return 'amber';
+      case 'Chefes & Bosses': return 'crimson';
+      case 'Dicas & Truques': return 'emerald';
+      case 'Segredos & Conquistas': return 'slate';
       default: return 'slate';
     }
   };
@@ -50,13 +49,13 @@ export const CategoryBadge: React.FC<{ category: GuideCategory; size?: 'sm' | 'm
 
 export const DifficultyBadge: React.FC<{ difficulty: GuideDifficulty }> = ({ difficulty }) => {
   const styles = {
-    'Iniciante': 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30',
-    'Intermediário': 'text-amber-400 bg-amber-950/40 border-amber-500/30',
-    'Avançado': 'text-rose-400 bg-rose-950/40 border-rose-500/30',
+    'Iniciante': 'text-[#7ecba1] bg-[#0d1c14] border-[#1d4730]',
+    'Intermediário': 'text-[#e9a263] bg-[#21160c] border-[#5a3617]',
+    'Avançado': 'text-[#e57d90] bg-[#240d12] border-[#5e1927]',
   };
 
   return (
-    <span className={`inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded border ${styles[difficulty]}`}>
+    <span className={`inline-flex items-center text-[10px] font-cinzel font-bold px-1.5 py-0.5 rounded border ${styles[difficulty]}`}>
       {difficulty}
     </span>
   );

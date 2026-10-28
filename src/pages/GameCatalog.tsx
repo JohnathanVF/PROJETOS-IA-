@@ -2,21 +2,19 @@ import React, { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGameGuide } from '../context/GameGuideContext';
 import { GameCard } from '../components/GameCard';
-import { Search, Filter, SlidersHorizontal, Gamepad2, X } from 'lucide-react';
+import { Search, Filter, SlidersHorizontal, Shield, X } from 'lucide-react';
 import { Platform } from '../types';
 
 export const GameCatalog: React.FC = () => {
   const { games, guides } = useGameGuide();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // URL query or local state
   const queryParam = searchParams.get('search') || '';
   const [search, setSearch] = useState(queryParam);
   const [selectedGenre, setSelectedGenre] = useState<string>('Todos');
   const [selectedPlatform, setSelectedPlatform] = useState<string>('Todas');
   const [sortBy, setSortBy] = useState<'rating' | 'title' | 'year'>('rating');
 
-  // Extrair todos os gêneros únicos
   const allGenres = useMemo(() => {
     const set = new Set<string>();
     games.forEach((g) => g.genres.forEach((genre) => set.add(genre)));
@@ -25,7 +23,6 @@ export const GameCatalog: React.FC = () => {
 
   const allPlatforms = ['Todas', 'PC', 'PlayStation 5', 'Xbox Series X/S', 'Nintendo Switch'];
 
-  // Sincronizar busca se parâmetro de URL mudar
   const handleSearchChange = (value: string) => {
     setSearch(value);
     if (value) {
@@ -43,7 +40,6 @@ export const GameCatalog: React.FC = () => {
     setSearchParams({});
   };
 
-  // Filtragem e ordenação
   const filteredGames = useMemo(() => {
     return games
       .filter((game) => {
@@ -70,73 +66,72 @@ export const GameCatalog: React.FC = () => {
   }, [games, search, selectedGenre, selectedPlatform, sortBy]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      {/* Cabeçalho */}
-      <div className="space-y-3">
-        <div className="inline-flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
-          <Gamepad2 className="w-4 h-4" />
-          <span>Biblioteca de Jogos</span>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      {/* Cabeçalho Vintage */}
+      <div className="space-y-2">
+        <div className="inline-flex items-center gap-1.5 text-fantasy-gold text-xs font-bold font-cinzel uppercase tracking-widest">
+          <Shield className="w-3.5 h-3.5 text-fantasy-gold" />
+          <span>Biblioteca de Cápsulas</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black font-gamer text-white">
+        <h1 className="text-2xl sm:text-4xl font-black font-cinzel text-[#f7eee1]">
           Catálogo Oficial de Jogos
         </h1>
-        <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-          Navegue por títulos épicos, encontre guias específicos para o seu jogo favorito 
-          e descubra novas aventuras com recomendações da comunidade.
+        <p className="text-xs sm:text-sm text-[#8c8577] font-serif max-w-2xl leading-relaxed">
+          Navegue pelas obras consagradas no formato minimalista de biblioteca, acesse guias dedicados ou descubra novos títulos recomendados pela comunidade.
         </p>
       </div>
 
-      {/* Barra de Filtros e Busca */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-5 backdrop-blur-md">
+      {/* Painel de Filtros e Busca */}
+      <div className="bg-[#10131b] border border-[#232938] rounded-lg p-4 space-y-4 shadow-steam-card">
         {/* Linha 1: Input de Busca e Ordenação */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-purple-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-fantasy-gold absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Buscar por título, estúdio ou gênero..."
-              className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700/80 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              className="w-full pl-9 pr-9 py-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold"
             />
             {search && (
               <button
                 onClick={() => handleSearchChange('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8c8577] hover:text-white"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
-            <SlidersHorizontal className="w-4 h-4 text-slate-400" />
-            <span className="text-xs text-slate-400 font-medium">Ordenar:</span>
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#8c8577]" />
+            <span className="text-xs text-[#8c8577] font-cinzel">Ordenar:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-slate-950/80 border border-slate-700/80 text-slate-200 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-purple-500"
+              className="bg-[#0a0d14] border border-[#262e40] text-[#ded8cc] text-xs rounded px-2.5 py-1.5 focus:outline-none focus:border-fantasy-gold font-cinzel"
             >
-              <option value="rating">Melhores Avaliados</option>
+              <option value="rating">Melhor Avaliados</option>
               <option value="title">Título (A-Z)</option>
-              <option value="year">Lançamento Mais Recente</option>
+              <option value="year">Lançamento Recente</option>
             </select>
           </div>
         </div>
 
         {/* Linha 2: Filtro por Plataforma */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80">
-          <span className="text-xs font-semibold text-slate-400 mr-2 flex items-center gap-1">
-            <Filter className="w-3.5 h-3.5 text-cyan-400" /> Plataforma:
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#1e2432]">
+          <span className="text-[11px] font-cinzel font-semibold text-[#8c8577] mr-1.5 flex items-center gap-1">
+            <Filter className="w-3 h-3 text-fantasy-gold" /> Plataforma:
           </span>
           {allPlatforms.map((plat) => (
             <button
               key={plat}
               onClick={() => setSelectedPlatform(plat)}
-              className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
+              className={`text-[11px] px-2.5 py-1 rounded font-cinzel transition-all ${
                 selectedPlatform === plat
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-sm'
-                  : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#2b2214] text-fantasy-goldLight border border-[#5f4924] shadow-sm font-bold'
+                  : 'bg-[#151922] text-[#8c8577] hover:text-white hover:bg-[#1a202c] border border-transparent'
               }`}
             >
               {plat}
@@ -145,16 +140,16 @@ export const GameCatalog: React.FC = () => {
         </div>
 
         {/* Linha 3: Filtro por Gênero */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-slate-400 mr-2">Gênero:</span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-cinzel font-semibold text-[#8c8577] mr-1.5">Gênero:</span>
           {allGenres.map((genre) => (
             <button
               key={genre}
               onClick={() => setSelectedGenre(genre)}
-              className={`text-xs px-3 py-1 rounded-full font-medium transition-all ${
+              className={`text-[10px] px-2 py-0.5 rounded font-cinzel transition-all ${
                 selectedGenre === genre
-                  ? 'bg-purple-600 text-white shadow-glow-purple'
-                  : 'bg-slate-800/60 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-700/40'
+                  ? 'bg-[#2b2214] text-fantasy-goldLight border border-[#5f4924] font-bold shadow-sm'
+                  : 'bg-[#131720] text-[#857e70] hover:text-[#f0eade] hover:bg-[#191f2c] border border-[#232b3b]'
               }`}
             >
               {genre}
@@ -164,40 +159,40 @@ export const GameCatalog: React.FC = () => {
       </div>
 
       {/* Indicador de Resultados */}
-      <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+      <div className="flex items-center justify-between text-xs text-[#7d786d] px-1 font-cinzel">
         <span>
-          Mostrando <strong className="text-purple-400 font-semibold">{filteredGames.length}</strong> de {games.length} jogos
+          Exibindo <strong className="text-fantasy-gold font-mono">{filteredGames.length}</strong> de {games.length} títulos
         </span>
         {(search || selectedGenre !== 'Todos' || selectedPlatform !== 'Todas') && (
           <button
             onClick={clearFilters}
-            className="text-purple-400 hover:text-purple-300 underline font-medium"
+            className="text-fantasy-gold hover:text-fantasy-goldLight underline font-medium"
           >
             Limpar todos os filtros
           </button>
         )}
       </div>
 
-      {/* Grid de Jogos */}
+      {/* Grid de Cápsulas Steam */}
       {filteredGames.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredGames.map((game) => {
             const count = guides.filter((g) => g.gameId === game.id).length;
             return <GameCard key={game.id} game={game} guidesCount={count} />;
           })}
         </div>
       ) : (
-        <div className="text-center py-16 bg-slate-900/40 border border-slate-800 rounded-2xl p-8 space-y-4">
-          <Gamepad2 className="w-12 h-12 text-slate-600 mx-auto" />
-          <h3 className="text-xl font-bold font-gamer text-white">
-            Nenhum jogo encontrado
+        <div className="text-center py-14 bg-[#10131b] border border-[#232938] rounded-lg p-6 space-y-3">
+          <Shield className="w-10 h-10 text-[#544d3f] mx-auto" />
+          <h3 className="text-lg font-bold font-cinzel text-[#ede4d3]">
+            Nenhum título localizado
           </h3>
-          <p className="text-xs text-slate-400 max-w-md mx-auto">
-            Não encontramos nenhum jogo correspondente aos filtros atuais. Tente buscar por outros termos ou limpe os filtros.
+          <p className="text-xs text-[#8c8577] font-serif max-w-sm mx-auto">
+            Não encontramos nenhum registro para os filtros atuais. Experimente outros termos ou limpe a busca.
           </p>
           <button
             onClick={clearFilters}
-            className="px-5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-500 shadow-glow-purple transition-all"
+            className="px-4 py-1.5 rounded bg-[#2b2214] border border-[#5f4924] text-fantasy-goldLight text-xs font-cinzel font-bold shadow-glow-gold"
           >
             Resetar Filtros
           </button>

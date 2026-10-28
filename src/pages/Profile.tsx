@@ -11,8 +11,8 @@ import {
   Edit3, 
   Check, 
   LogOut, 
-  PlusCircle,
-  Sparkles
+  Feather,
+  Scroll
 } from 'lucide-react';
 
 export const Profile: React.FC = () => {
@@ -26,12 +26,12 @@ export const Profile: React.FC = () => {
   if (!user) {
     return (
       <div className="max-w-md mx-auto px-4 py-20 text-center space-y-4">
-        <UserIcon className="w-16 h-16 text-slate-600 mx-auto" />
-        <h1 className="text-2xl font-bold font-gamer text-white">Nenhum usuário conectado</h1>
-        <p className="text-xs text-slate-400">Faça login para acessar o perfil e gerenciar seus guias.</p>
+        <UserIcon className="w-14 h-14 text-[#544d3f] mx-auto" />
+        <h1 className="text-2xl font-bold font-cinzel text-white">Nenhum membro identificado</h1>
+        <p className="text-xs text-[#8c8577] font-serif">Faça login para ter acesso aos seus registros e manuscritos.</p>
         <Link
           to="/login"
-          className="inline-flex px-5 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold shadow-glow-purple"
+          className="inline-flex px-4 py-2 rounded bg-[#2b2214] border border-[#5f4924] text-fantasy-goldLight text-xs font-cinzel font-bold shadow-glow-gold"
         >
           Fazer Login
         </Link>
@@ -39,12 +39,10 @@ export const Profile: React.FC = () => {
     );
   }
 
-  // Guias criados pelo usuário logado
   const userGuides = guides.filter(
     (g) => g.author.id === user.id || g.author.name.toLowerCase() === user.name.toLowerCase()
   );
 
-  // Média de avaliação dos guias do usuário
   const totalVotesReceived = userGuides.reduce((acc, g) => acc + g.ratings.totalVotes, 0);
   const averageRatingReceived =
     userGuides.length > 0
@@ -65,71 +63,69 @@ export const Profile: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      {/* Cartão de Perfil do Gamer */}
-      <div className="relative rounded-3xl overflow-hidden bg-slate-900/90 border border-slate-800 p-6 sm:p-8 backdrop-blur-md shadow-2xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Cartão de Perfil Dark Fantasy */}
+      <div className="relative rounded-lg overflow-hidden bg-[#10131c] border border-[#232938] p-5 sm:p-7 shadow-steam-card">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 relative z-10">
           <div className="relative">
             <img
               src={user.avatar}
               alt={user.name}
-              className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-purple-500/60 shadow-glow-purple object-cover"
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg border border-fantasy-gold/50 shadow-glow-gold object-cover"
             />
-            <span className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-purple-900 text-purple-300 border border-purple-500/40 text-[10px] font-bold">
+            <span className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded bg-[#1e170c] text-fantasy-goldLight border border-[#523d1d] text-[9px] font-cinzel font-bold">
               {user.role}
             </span>
           </div>
 
-          <div className="flex-1 text-center sm:text-left space-y-3">
+          <div className="flex-1 text-center sm:text-left space-y-2.5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-2xl sm:text-3xl font-black font-gamer text-white">
+                <h1 className="text-xl sm:text-3xl font-black font-cinzel text-[#f7eee1]">
                   {user.name}
                 </h1>
-                <p className="text-xs text-slate-400 mt-0.5">{user.email}</p>
+                <p className="text-xs text-[#8c8577] font-mono mt-0.5">{user.email}</p>
               </div>
 
               <div className="flex items-center justify-center sm:justify-start gap-2">
                 <Link
                   to="/create-guide"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-glow-purple transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#2b2214] hover:bg-[#382b18] text-fantasy-goldLight text-xs font-cinzel font-bold border border-[#5f4924] shadow-glow-gold transition-all"
                 >
-                  <PlusCircle className="w-4 h-4" />
-                  <span>Novo Guia</span>
+                  <Feather className="w-3.5 h-3.5 text-fantasy-gold" />
+                  <span>Novo Manuscrito</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-rose-950/40 hover:text-rose-400 border border-slate-700/60 text-xs font-semibold text-slate-300 transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#151922] hover:bg-rose-950/40 hover:text-rose-400 border border-[#232938] text-xs font-cinzel text-[#8c8577] transition-all"
                 >
                   <LogOut className="w-3.5 h-3.5" />
-                  <span>Sair</span>
+                  <span>Desconectar</span>
                 </button>
               </div>
             </div>
 
             {/* Bio */}
-            <div className="pt-2">
+            <div className="pt-1">
               {isEditingBio ? (
                 <div className="space-y-2 max-w-xl">
                   <textarea
                     value={bioText}
                     onChange={(e) => setBioText(e.target.value)}
                     rows={2}
-                    placeholder="Escreva algo sobre você..."
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-purple-500/40 text-xs text-slate-200 focus:outline-none"
+                    placeholder="Escreva algo sobre sua jornada..."
+                    className="w-full p-2 rounded bg-[#0a0d14] border border-fantasy-gold/50 text-xs text-[#ded8cc] font-serif focus:outline-none"
                   />
                   <div className="flex gap-2">
                     <button
                       onClick={handleSaveBio}
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-800 text-white text-[11px] font-cinzel font-bold"
                     >
                       <Check className="w-3 h-3" /> Salvar
                     </button>
                     <button
                       onClick={() => setIsEditingBio(false)}
-                      className="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs"
+                      className="px-2.5 py-1 rounded bg-[#1e2432] text-[#8c8577] text-[11px] font-cinzel"
                     >
                       Cancelar
                     </button>
@@ -137,107 +133,107 @@ export const Profile: React.FC = () => {
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-slate-300 italic">
-                    "{user.bio || 'Nenhuma biografia adicionada ainda.'}"
+                  <p className="text-xs text-[#a8a192] italic font-serif">
+                    "{user.bio || 'Nenhuma biografia registrada ainda.'}"
                   </p>
                   <button
                     onClick={() => {
                       setBioText(user.bio || '');
                       setIsEditingBio(true);
                     }}
-                    className="text-slate-400 hover:text-purple-400 transition-colors"
+                    className="text-[#736d62] hover:text-fantasy-gold transition-colors"
                     title="Editar biografia"
                   >
-                    <Edit3 className="w-3.5 h-3.5" />
+                    <Edit3 className="w-3 h-3" />
                   </button>
                 </div>
               )}
             </div>
 
             {/* Data de adesão */}
-            <div className="flex items-center justify-center sm:justify-start gap-1.5 text-[11px] text-slate-500 pt-1">
-              <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Membro desde {user.joinedDate}</span>
+            <div className="flex items-center justify-center sm:justify-start gap-1.5 text-[10px] text-[#787265] pt-0.5 font-cinzel">
+              <Calendar className="w-3 h-3 text-fantasy-gold" />
+              <span>Irmão de guilda desde {user.joinedDate}</span>
             </div>
           </div>
         </div>
 
         {/* Estatísticas do Perfil */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800">
-          <div className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
-            <span className="text-xl sm:text-2xl font-black font-gamer text-purple-400">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-4 border-t border-[#1e2432]">
+          <div className="bg-[#0a0d14] p-3 rounded border border-[#1e2432]">
+            <span className="text-lg sm:text-xl font-black font-cinzel text-fantasy-gold">
               {userGuides.length}
             </span>
-            <p className="text-[11px] text-slate-400 mt-0.5">Guias Publicados</p>
+            <p className="text-[10px] text-[#7d786d] font-cinzel mt-0.5">Manuscritos Escritos</p>
           </div>
 
-          <div className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
-            <span className="text-xl sm:text-2xl font-black font-gamer text-amber-400 flex items-center gap-1">
+          <div className="bg-[#0a0d14] p-3 rounded border border-[#1e2432]">
+            <span className="text-lg sm:text-xl font-black font-cinzel text-amber-400 flex items-center gap-1">
               <span>{averageRatingReceived}</span>
-              <Star className="w-4 h-4 fill-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400" />
             </span>
-            <p className="text-[11px] text-slate-400 mt-0.5">Média Recebida</p>
+            <p className="text-[10px] text-[#7d786d] font-cinzel mt-0.5">Média Recebida</p>
           </div>
 
-          <div className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
-            <span className="text-xl sm:text-2xl font-black font-gamer text-cyan-400">
+          <div className="bg-[#0a0d14] p-3 rounded border border-[#1e2432]">
+            <span className="text-lg sm:text-xl font-black font-cinzel text-fantasy-goldLight">
               {totalVotesReceived}
             </span>
-            <p className="text-[11px] text-slate-400 mt-0.5">Votos Recebidos</p>
+            <p className="text-[10px] text-[#7d786d] font-cinzel mt-0.5">Votos Recebidos</p>
           </div>
 
-          <div className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
-            <span className="text-xl sm:text-2xl font-black font-gamer text-emerald-400">
+          <div className="bg-[#0a0d14] p-3 rounded border border-[#1e2432]">
+            <span className="text-lg sm:text-xl font-black font-cinzel text-emerald-400">
               {user.role}
             </span>
-            <p className="text-[11px] text-slate-400 mt-0.5">Rank na Comunidade</p>
+            <p className="text-[10px] text-[#7d786d] font-cinzel mt-0.5">Grau na Guilda</p>
           </div>
         </div>
       </div>
 
       {/* Guias do Usuário */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b border-[#232938] pb-3">
           <div>
-            <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider mb-1">
-              <BookOpen className="w-4 h-4" />
-              <span>Minhas Contribuições</span>
+            <div className="flex items-center gap-1.5 text-fantasy-gold text-[11px] font-bold font-cinzel uppercase tracking-widest mb-0.5">
+              <BookOpen className="w-3.5 h-3.5 text-fantasy-gold" />
+              <span>Arquivo Pessoal</span>
             </div>
-            <h2 className="text-2xl font-bold font-gamer text-white">
-              Publicações de {user.name} ({userGuides.length})
+            <h2 className="text-xl font-bold font-cinzel text-[#f7eee1]">
+              Manuscritos de {user.name} ({userGuides.length})
             </h2>
           </div>
 
           <Link
             to="/create-guide"
-            className="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1"
+            className="text-xs font-bold font-cinzel text-fantasy-gold hover:text-fantasy-goldLight flex items-center gap-1"
           >
-            <PlusCircle className="w-3.5 h-3.5" />
-            <span>Adicionar Novo</span>
+            <Feather className="w-3 h-3" />
+            <span>Redigir Novo</span>
           </Link>
         </div>
 
         {userGuides.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {userGuides.map((guide) => (
               <GuideCard key={guide.id} guide={guide} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-slate-900/40 border border-slate-800 rounded-3xl p-8 space-y-4">
-            <Sparkles className="w-12 h-12 text-purple-400 mx-auto" />
-            <h3 className="text-xl font-bold font-gamer text-white">
-              Você ainda não publicou nenhum guia
+          <div className="text-center py-12 bg-[#10131c] border border-[#232938] rounded-lg p-6 space-y-3">
+            <Scroll className="w-10 h-10 text-fantasy-gold mx-auto" />
+            <h3 className="text-lg font-bold font-cinzel text-[#ede4d3]">
+              Você ainda não publicou nenhum manuscrito
             </h3>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Compartilhe seu primeiro detonado, dica de chefe ou recomendação de equipamentos e comece a receber avaliações por estrelas da comunidade!
+            <p className="text-xs text-[#8c8577] font-serif max-w-sm mx-auto">
+              Compartilhe seu primeiro detonado ou dica de chefe e comece a receber avaliações por estrelas da irmandade!
             </p>
             <Link
               to="/create-guide"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-glow-purple transition-all"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded bg-[#2b2214] hover:bg-[#382b18] text-fantasy-goldLight text-xs font-cinzel font-bold border border-[#5f4924] shadow-glow-gold"
             >
-              <PlusCircle className="w-4 h-4" />
-              <span>Criar Meu Primeiro Guia</span>
+              <Feather className="w-3.5 h-3.5" />
+              <span>Escrever Primeiro Guia</span>
             </Link>
           </div>
         )}

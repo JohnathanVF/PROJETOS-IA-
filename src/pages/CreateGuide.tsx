@@ -7,11 +7,10 @@ import {
   PlusCircle, 
   Trash2, 
   Lightbulb, 
-  Gamepad2, 
-  BookOpen, 
-  Sparkles, 
+  Scroll, 
   AlertCircle,
-  ArrowLeft
+  ArrowLeft,
+  Feather
 } from 'lucide-react';
 
 interface SectionState {
@@ -32,21 +31,21 @@ export const CreateGuide: React.FC = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<GuideCategory>('Detonado Completo');
   const [difficulty, setDifficulty] = useState<GuideDifficulty>('Intermediário');
-  const [estimatedReadTime, setEstimatedReadTime] = useState('5 min de leitura');
+  const [estimatedReadTime, setEstimatedReadTime] = useState('6 min de leitura');
   const [summary, setSummary] = useState('');
   const [intro, setIntro] = useState('');
   const [tags, setTags] = useState('');
-  const [authorName, setAuthorName] = useState(user?.name || 'Gamer Estrategista');
+  const [authorName, setAuthorName] = useState(user?.name || 'Mestre Estrategista');
 
   const [sections, setSections] = useState<SectionState[]>([
     {
-      title: 'Passo 1: Preparação e Equipamentos',
-      content: 'Explique o que o jogador deve coletar antes de iniciar o desafio...',
-      tip: 'Mantenha consumíveis de cura à mão na barra rápida.',
+      title: 'Fase 1: Preparação Arcana e Equipamentos',
+      content: 'Detalhe os itens consumíveis, talismãs e armaduras mandatórias antes de avançar...',
+      tip: 'Mantenha frascos de estus ou cura rápida alocados no primeiro slot do cinto.',
     },
     {
-      title: 'Passo 2: Execução da Estratégia',
-      content: 'Descreva a movimentação, fraquezas do inimigo ou escolhas de rota...',
+      title: 'Fase 2: Padrões de Ataque e Janelas de Golpe',
+      content: 'Instrua o leitor sobre os momentos ideais para rolar e desferir contra-ataques...',
       tip: '',
     },
   ]);
@@ -57,7 +56,7 @@ export const CreateGuide: React.FC = () => {
     setSections((prev) => [
       ...prev,
       {
-        title: `Passo ${prev.length + 1}: Novo Tópico`,
+        title: `Fase ${prev.length + 1}: Nova Etapa`,
         content: '',
         tip: '',
       },
@@ -82,15 +81,15 @@ export const CreateGuide: React.FC = () => {
     setError(null);
 
     if (!title.trim()) {
-      setError('Por favor, informe o título do guia.');
+      setError('Por favor, informe o título do manuscrito.');
       return;
     }
     if (!summary.trim()) {
-      setError('Por favor, preencha o resumo do guia.');
+      setError('Por favor, preencha o resumo da publicação.');
       return;
     }
     if (!intro.trim()) {
-      setError('Por favor, preencha a introdução da estratégia.');
+      setError('Por favor, preencha o preâmbulo da estratégia.');
       return;
     }
 
@@ -107,8 +106,8 @@ export const CreateGuide: React.FC = () => {
 
     const author = {
       id: user?.id || `user-anon-${Date.now()}`,
-      name: authorName.trim() || 'Gamer Anônimo',
-      avatar: user?.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=creator',
+      name: authorName.trim() || 'Aventureiro Sem Nome',
+      avatar: user?.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=scribe',
       badge: user?.role || 'Membro',
     };
 
@@ -127,61 +126,59 @@ export const CreateGuide: React.FC = () => {
       author,
     });
 
-    // Redireciona para o guia recém-criado
     navigate(`/guides/${newGuide.id}`);
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Retorno */}
       <Link
         to="/guides"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-purple-300 transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs font-cinzel text-[#8c8577] hover:text-fantasy-goldLight transition-colors"
       >
-        <ArrowLeft className="w-4 h-4" />
-        <span>Voltar aos Guias</span>
+        <ArrowLeft className="w-3.5 h-3.5 text-fantasy-gold" />
+        <span>Voltar aos Manuscritos</span>
       </Link>
 
-      <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
-          <BookOpen className="w-4 h-4" />
-          <span>Editor Comunitário</span>
+      <div className="space-y-1.5">
+        <div className="inline-flex items-center gap-1.5 text-fantasy-gold text-xs font-bold font-cinzel uppercase tracking-widest">
+          <Feather className="w-3.5 h-3.5 text-fantasy-gold" />
+          <span>Ateliê de Escritura</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black font-gamer text-white">
-          Publicar Novo Guia de Jogo
+        <h1 className="text-2xl sm:text-4xl font-black font-cinzel text-[#f7eee1]">
+          Publicar Novo Manuscrito
         </h1>
-        <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-          Compartilhe suas táticas, rotas e builds. Seu guia será exibido imediatamente na biblioteca, 
-          vinculado ao jogo escolhido e aberto para avaliações de 1 a 5 estrelas.
+        <p className="text-xs sm:text-sm text-[#8c8577] font-serif max-w-2xl leading-relaxed">
+          Compartilhe suas táticas com a irmandade. Seu guia será anexado imediatamente ao jogo correspondente e liberado para consagração por estrelas.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-3 text-rose-300 text-sm">
-          <AlertCircle className="w-5 h-5 flex-shrink-0" />
+        <div className="p-3 rounded bg-[#240d12] border border-[#661b29] flex items-center gap-2.5 text-[#e57d90] text-xs font-cinzel">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Formulário */}
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Bloco 1: Informações Gerais */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-md">
-          <h2 className="text-xl font-bold font-gamer text-white flex items-center gap-2">
-            <Gamepad2 className="w-5 h-5 text-purple-400" />
-            <span>1. Informações Básicas</span>
+        <div className="bg-[#10131c] border border-[#232938] rounded-lg p-5 sm:p-7 space-y-4 shadow-steam-card">
+          <h2 className="text-base font-bold font-cinzel text-fantasy-goldLight flex items-center gap-2 border-b border-[#1e2432] pb-2">
+            <Scroll className="w-4 h-4 text-fantasy-gold" />
+            <span>1. Informações Básicas do Manuscrito</span>
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Jogo Vinculado */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">
-                Jogo Vinculado <span className="text-purple-400">*</span>
+            <div className="space-y-1">
+              <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+                Jogo Correspondente <span className="text-fantasy-gold">*</span>
               </label>
               <select
                 value={gameId}
                 onChange={(e) => setGameId(e.target.value)}
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
               >
                 {games.map((g) => (
                   <option key={g.id} value={g.id}>
@@ -192,14 +189,14 @@ export const CreateGuide: React.FC = () => {
             </div>
 
             {/* Categoria */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">
-                Categoria do Guia <span className="text-purple-400">*</span>
+            <div className="space-y-1">
+              <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+                Categoria da Estratégia <span className="text-fantasy-gold">*</span>
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as GuideCategory)}
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
               >
                 <option value="Detonado Completo">Detonado Completo</option>
                 <option value="Builds & Equipamentos">Builds & Equipamentos</option>
@@ -210,14 +207,14 @@ export const CreateGuide: React.FC = () => {
             </div>
 
             {/* Dificuldade */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">
-                Dificuldade Estimada
+            <div className="space-y-1">
+              <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+                Nível de Exigência
               </label>
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value as GuideDifficulty)}
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
               >
                 <option value="Iniciante">Iniciante</option>
                 <option value="Intermediário">Intermediário</option>
@@ -226,117 +223,117 @@ export const CreateGuide: React.FC = () => {
             </div>
 
             {/* Tempo de Leitura */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300">
-                Tempo Estimado de Leitura
+            <div className="space-y-1">
+              <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+                Tempo Estimado
               </label>
               <input
                 type="text"
                 value={estimatedReadTime}
                 onChange={(e) => setEstimatedReadTime(e.target.value)}
-                placeholder="Ex: 6 min de leitura"
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+                placeholder="Ex: 7 min de leitura"
+                className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
               />
             </div>
           </div>
 
           {/* Título do Guia */}
-          <div className="space-y-2">
-            <label className="text-xs font-semibold text-slate-300">
-              Título Chamativo do Guia <span className="text-purple-400">*</span>
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Título Honroso da Publicação <span className="text-fantasy-gold">*</span>
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ex: Guia Completo para Vencer o Chefe Final sem Armadura"
-              className="w-full p-3.5 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500"
+              placeholder="Ex: Como Superar o Rei Sem Nome com Armadura Leve"
+              className="w-full p-2.5 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs sm:text-sm focus:outline-none focus:border-fantasy-gold font-cinzel"
             />
           </div>
 
           {/* Resumo */}
-          <div className="space-y-2">
-            <label className="text-xs font-semibold text-slate-300">
-              Resumo / Sinopse Rápida <span className="text-purple-400">*</span>
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Resumo / Sinopse do Manuscrito <span className="text-fantasy-gold">*</span>
             </label>
             <textarea
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
-              placeholder="Breve descrição em 1 ou 2 frases sobre o que o leitor vai aprender neste guia..."
+              placeholder="Breve síntese em 1 ou 2 frases sobre os ensinamentos deste guia..."
               rows={2}
-              className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500"
+              className="w-full p-2.5 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold font-serif"
             />
           </div>
 
           {/* Autor */}
-          <div className="space-y-2">
-            <label className="text-xs font-semibold text-slate-300">
-              Nome de Autor / Gamertag
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Nome do Autor / Título Nobiliárquico
             </label>
             <input
               type="text"
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
-              placeholder="Seu nome ou apelido gamer"
-              className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+              placeholder="Sua alcunha de guerreiro"
+              className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
             />
           </div>
         </div>
 
         {/* Bloco 2: Conteúdo Estruturado */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 backdrop-blur-md">
-          <h2 className="text-xl font-bold font-gamer text-white flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-cyan-400" />
-            <span>2. Conteúdo e Estratégia</span>
+        <div className="bg-[#10131c] border border-[#232938] rounded-lg p-5 sm:p-7 space-y-4 shadow-steam-card">
+          <h2 className="text-base font-bold font-cinzel text-fantasy-goldLight flex items-center gap-2 border-b border-[#1e2432] pb-2">
+            <Feather className="w-4 h-4 text-fantasy-gold" />
+            <span>2. Conteúdo & Táticas Detalhadas</span>
           </h2>
 
           {/* Introdução */}
-          <div className="space-y-2">
-            <label className="text-xs font-semibold text-slate-300">
-              Introdução do Guia <span className="text-purple-400">*</span>
+          <div className="space-y-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Preâmbulo da Estratégia <span className="text-fantasy-gold">*</span>
             </label>
             <textarea
               value={intro}
               onChange={(e) => setIntro(e.target.value)}
-              placeholder="Apresente o contexto do guia, pré-requisitos e principais vantagens..."
+              placeholder="Apresente os perigos do desafio, contexto do confronto e vantagens desta rota..."
               rows={3}
-              className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500"
+              className="w-full p-2.5 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] placeholder-[#665f53] text-xs focus:outline-none focus:border-fantasy-gold font-serif"
             />
           </div>
 
           {/* Seções Dinâmicas */}
-          <div className="space-y-4 pt-2">
+          <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-bold font-gamer text-purple-300 uppercase tracking-wide">
-                Seções do Guia ({sections.length})
+              <label className="text-xs font-bold font-cinzel text-fantasy-goldLight uppercase tracking-wide">
+                Fases do Guia ({sections.length})
               </label>
               <button
                 type="button"
                 onClick={handleAddSection}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-950/80 border border-purple-500/40 text-purple-300 hover:text-white hover:bg-purple-900/80 text-xs font-semibold transition-all"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2b2214] border border-[#5f4924] text-fantasy-goldLight text-[11px] font-cinzel font-semibold transition-all hover:bg-[#382b18]"
               >
-                <PlusCircle className="w-3.5 h-3.5" />
-                <span>Adicionar Seção</span>
+                <PlusCircle className="w-3 h-3 text-fantasy-gold" />
+                <span>Adicionar Fase</span>
               </button>
             </div>
 
             {sections.map((section, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-4 relative"
+                className="p-4 rounded bg-[#0a0d14] border border-[#1e2432] space-y-2.5"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Seção #{idx + 1}
+                  <span className="text-[11px] font-bold font-cinzel text-fantasy-gold uppercase tracking-wider">
+                    Fase #{idx + 1}
                   </span>
                   {sections.length > 1 && (
                     <button
                       type="button"
                       onClick={() => handleRemoveSection(idx)}
-                      className="text-xs text-rose-400 hover:text-rose-300 p-1 flex items-center gap-1"
+                      className="text-xs text-rose-400 hover:text-rose-300 p-0.5 flex items-center gap-1 font-cinzel"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
-                      <span>Remover</span>
+                      <Trash2 className="w-3 h-3" />
+                      <span>Excluir</span>
                     </button>
                   )}
                 </div>
@@ -345,26 +342,26 @@ export const CreateGuide: React.FC = () => {
                   type="text"
                   value={section.title}
                   onChange={(e) => handleSectionChange(idx, 'title', e.target.value)}
-                  placeholder="Título da seção (ex: Fraquezas e Padrões de Ataque)"
-                  className="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  placeholder="Título da fase (ex: Esquivas do Ataque Saltado)"
+                  className="w-full p-2 rounded bg-[#10131c] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
                 />
 
                 <textarea
                   value={section.content}
                   onChange={(e) => handleSectionChange(idx, 'content', e.target.value)}
-                  placeholder="Descreva as instruções detalhadas desta etapa..."
-                  rows={3}
-                  className="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  placeholder="Descreva minuciosamente os movimentos e posicionamentos..."
+                  rows={2}
+                  className="w-full p-2 rounded bg-[#10131c] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-serif"
                 />
 
                 <div className="relative">
-                  <Lightbulb className="w-4 h-4 text-amber-400 absolute left-3 top-3" />
+                  <Lightbulb className="w-3.5 h-3.5 text-amber-500 absolute left-2.5 top-2.5" />
                   <input
                     type="text"
                     value={section.tip}
                     onChange={(e) => handleSectionChange(idx, 'tip', e.target.value)}
-                    placeholder="Dica Pro opcional (ex: utilize o item de gelo para cortar o salto do boss)"
-                    className="w-full pl-9 pr-3 py-2 rounded-lg bg-slate-900 border border-purple-500/20 text-xs text-slate-300 focus:outline-none focus:border-purple-500"
+                    placeholder="Dica Pro de mestre (opcional)"
+                    className="w-full pl-8 pr-3 py-1.5 rounded bg-[#14120a] border border-[#4d3a1c] text-[11px] text-[#baa990] focus:outline-none focus:border-fantasy-gold font-serif"
                   />
                 </div>
               </div>
@@ -372,34 +369,34 @@ export const CreateGuide: React.FC = () => {
           </div>
 
           {/* Tags */}
-          <div className="space-y-2 pt-2">
-            <label className="text-xs font-semibold text-slate-300">
-              Tags / Palavras-chave (separadas por vírgula)
+          <div className="space-y-1 pt-1">
+            <label className="text-[11px] font-cinzel font-semibold text-[#8c8577]">
+              Palavras-chave (separadas por vírgula)
             </label>
             <input
               type="text"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
               placeholder="Ex: Boss Fight, No-Damage, Sangramento, Elden Ring"
-              className="w-full p-3 rounded-xl bg-slate-950 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full p-2 rounded bg-[#0a0d14] border border-[#262e40] text-[#eee7da] text-xs focus:outline-none focus:border-fantasy-gold font-cinzel"
             />
           </div>
         </div>
 
         {/* Botão de Envio */}
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex items-center justify-end gap-3">
           <Link
             to="/guides"
-            className="px-5 py-3 rounded-xl text-slate-400 hover:text-white text-sm font-semibold transition-colors"
+            className="px-4 py-2 rounded text-[#8c8577] hover:text-white text-xs font-cinzel transition-colors"
           >
-            Cancelar
+            Descartar
           </Link>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-glow-purple transition-all transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded bg-[#2b2214] hover:bg-[#382b18] text-fantasy-goldLight font-cinzel font-bold text-xs border border-[#6b5228] shadow-glow-gold transition-all"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Publicar Guia Agora</span>
+            <Feather className="w-3.5 h-3.5 text-fantasy-gold" />
+            <span>Consagrar Manuscrito</span>
           </button>
         </div>
       </form>
