@@ -1,155 +1,149 @@
-# 🎮 GameGuide — Biblioteca de Jogos & Fórum de Guias da Comunidade
+<div align="center">
 
-Uma plataforma web moderna com estética gamer escura desenvolvida para que jogadores possam descobrir títulos lendários, dominar desafios complexos e compartilhar estratégias, detonados, builds e soluções avaliadas pela comunidade.
+# ⚔️ GAMEGUIDE
+### *Grimório Gamer & Fórum de Estratégias Comunitárias*
+
+[![Author](https://img.shields.io/badge/Author-JohnathanVF-c5a059?style=for-the-badge&logo=github)](https://github.com/JohnathanVF)
+[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript_5-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite_6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+<br />
+
+> **Uma plataforma web completa com temática Dark Fantasy Vintage e cards no formato minimalista de cápsulas da Steam, unindo uma biblioteca imersiva de jogos a um fórum comunitário de detonados, builds e soluções com avaliação por estrelas.**
 
 ---
 
-## 🚀 Tecnologias Utilizadas & Justificativas
+</div>
 
-- **React 18 & TypeScript**: Componentização modular, renderização reativa e tipagem estrita para modelos de jogos, publicações, comentários e avaliações.
-- **Vite 6**: Ferramenta de build de última geração com inicialização instantânea e Hot Module Replacement (HMR).
-- **Tailwind CSS**: Estilização moderna com paleta gamer escura (*deep slate/zinc* com toques de roxo elétrico, ciano neon e esmeralda), efeitos de brilho (*glow*), desfoque translúcido (*glassmorphism*) e responsividade total em desktop e mobile.
-- **Lucide React**: Biblioteca de ícones moderna e leve para interfaces gamer (gamepads, espadas, estrelas, troféus, filtros e livros).
-- **React Router DOM v6**: Roteamento SPA fluído sem recarregamentos de página.
-- **Context API & Data Engine Reativo**: Gerenciamento de estado global com persistência local instantânea via `localStorage`.
+## 🗡️ Visão Geral do Projeto
+
+O **GameGuide** foi forjado para ser o ponto de encontro definitivo entre jogadores apaixonados e mestres estrategistas. A plataforma combina uma estética sombria clássica (inspirada em universos como *Dark Souls, Elden Ring, Baldur's Gate e The Witcher*) com a praticidade e organização visual das bibliotecas digitais modernas.
+
+### 🌟 Principais Destaques
+
+- **🏰 Estética Dark Fantasy Vintage**: Paleta elegante em grafite profundo, ardósia e toques nobres de ouro envelhecido e bronze, com tipografia majestosa nas fontes *Cinzel* e *Crimson Pro*.
+- **🎮 Cards de Jogos Estilo Cápsula Steam**: Cards compactos e horizontais inspirados no padrão de storefront da Steam, com artes autênticas de alta definição, etiquetas de gênero e contadores de guias.
+- **📜 Grimórios & Guias Estruturados**: Criação e leitura de guias passo a passo, incluindo caixas de destaque para *"Dicas de Especialista"* (*Pro-Tips*).
+- **⭐ Sistema de Avaliação Interativo (1 a 5 Estrelas)**: Permite que qualquer membro da guilda vote ou altere sua nota, recalculando a média ponderada e os votos em tempo real.
+- **💬 Fórum Comunitário Integrado**: Seção de comentários em tempo real para debate de táticas e esclarecimento de dúvidas.
+- **🛡️ Portal do Membro & Perfil**: Sistema de autenticação (com atalhos rápidos de teste para demonstração) e perfil pessoal com histórico de guias e média de notas recebidas.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 🏛️ Arquitetura & Tecnologias
+
+| Tecnologia | Finalidade no Projeto |
+| :--- | :--- |
+| **React 18** | Arquitetura componentizada, reatividade instantânea e manipulação eficiente do DOM. |
+| **TypeScript 5** | Tipagem estrita de modelos de dados (`Game`, `Guide`, `User`, `RatingData`, `Comment`). |
+| **Vite 6** | Bundler ultra veloz com suporte a HMR (*Hot Module Replacement*) e compilação otimizada. |
+| **Tailwind CSS 3** | Design system customizado com tema Dark Fantasy (sombras glow, bordas em ouro e pergaminho). |
+| **Lucide Icons** | Conjunto coeso de ícones medievais e gamers (escudos, pergaminhos, penas, estrelas e chamas). |
+| **React Router 6** | Navegação SPA (*Single Page Application*) com rotas dinâmicas e retorno automático ao topo. |
+| **Data Engine (LocalStorage)** | Camada de dados persistente no navegador, dispensando configuração de bancos externos para execução imediata. |
+
+---
+
+## 📁 Estrutura de Pastas & Arquivos
 
 ```
 games_guides/
-├── index.html                   # Ponto de entrada HTML com fontes e meta gamer
-├── package.json                 # Dependências e scripts de execução
-├── tsconfig.json                # Configuração do TypeScript
-├── vite.config.ts               # Configuração do Vite com plugin React
-├── tailwind.config.js           # Cores customizadas gamer e sombras glow
-├── postcss.config.js            # Processamento de estilos PostCSS
-├── src/
-│   ├── main.tsx                 # Inicialização do React com Providers
-│   ├── App.tsx                  # Definição de rotas da aplicação e layout base
-│   ├── index.css                # Estilos globais gamer e diretivas Tailwind
-│   ├── types/
-│   │   └── index.ts             # Interfaces TypeScript (Game, Guide, User, Rating, Comment)
-│   ├── data/
-│   │   └── mockData.ts          # Dataset inicial com jogos aclamados e guias ricos
-│   ├── context/
-│   │   ├── AuthContext.tsx      # Gerenciamento de sessão de usuário e persistência
-│   │   └── GameGuideContext.tsx # Catálogo de jogos, guias, avaliações 1-5 estrelas e comentários
-│   ├── components/
-│   │   ├── Navbar.tsx           # Barra de navegação gamer com menu responsivo e status de login
-│   │   ├── Footer.tsx           # Rodapé informativo com métricas e transparência arquitetural
-│   │   ├── GameCard.tsx         # Card de jogo com capas, plataformas, nota e guias vinculados
-│   │   ├── GuideCard.tsx        # Card de guia com autor, categoria, tempo e estrelas
-│   │   ├── StarRating.tsx       # Componente interativo de avaliação de 1 a 5 estrelas
-│   │   └── Badge.tsx            # Badges coloridos de categoria e dificuldade
-│   └── pages/
-│       ├── Home.tsx             # Página inicial com hero, busca instantânea e destaques
-│       ├── GameCatalog.tsx      # Catálogo com filtros de plataforma, gênero e ordenação
-│       ├── GameDetail.tsx       # Página do jogo com sinopse, ficha técnica e guias daquele jogo
-│       ├── GuidesFeed.tsx       # Fórum de guias com busca por termos, dificuldade e tipo
-│       ├── GuideDetail.tsx      # Leitura estruturada do guia, avaliação interativa e comentários
-│       ├── CreateGuide.tsx      # Formulário dinâmico para publicação de novos guias
-│       ├── Login.tsx            # Página de login com atalhos de contas de teste
-│       ├── Register.tsx         # Cadastro de novo usuário gamer
-│       └── Profile.tsx          # Perfil do jogador com bio editável e histórico de guias
+├── index.html                   # Estrutura HTML com carregamento de fontes clássicas
+├── package.json                 # Manifesto de dependências e scripts de execução
+├── tsconfig.json                # Configuração de compilação estrita do TypeScript
+├── tailwind.config.js           # Design tokens: paleta dark fantasy e efeitos vintage
+├── postcss.config.js            # Pré-processamento PostCSS
+├── LICENSE                      # Licença de código aberto MIT
+├── README.md                    # Documentação técnica e guia do desenvolvedor
+└── src/
+    ├── main.tsx                 # Ponto de montagem com BrowserRouter e Context Providers
+    ├── App.tsx                  # Definição e roteamento das páginas da aplicação
+    ├── index.css                # Diretivas Tailwind e estilização de pergaminho/scrollbars
+    ├── types/
+    │   └── index.ts             # Interfaces TypeScript estritas
+    ├── data/
+    │   └── mockData.ts          # Dataset inicial com obras aclamadas e manuscritos
+    ├── context/
+    │   ├── AuthContext.tsx      # Gerenciamento de sessão de usuário com persistência
+    │   └── GameGuideContext.tsx # Estado global de jogos, guias, votos de estrelas e comentários
+    ├── components/
+    │   ├── Navbar.tsx           # Barra de navegação com brasão heráldico e menu responsivo
+    │   ├── Footer.tsx           # Rodapé em estilo arquivo ancestral com estatísticas
+    │   ├── GameCard.tsx         # Cápsula minimalista de jogo estilo Steam
+    │   ├── GuideCard.tsx        # Card de manuscrito com selos de cera e autor
+    │   ├── StarRating.tsx       # Componente interativo de consagração de 1 a 5 estrelas
+    │   └── Badge.tsx            # Selos de categoria e níveis de exigência
+    └── pages/
+        ├── Home.tsx             # Salão principal com busca rápida e vitrines
+        ├── GameCatalog.tsx      # Catálogo de cápsulas com filtros de gênero e plataforma
+        ├── GameDetail.tsx       # Página do jogo com sinopse, especificações e guias dedicados
+        ├── GuidesFeed.tsx       # Fórum de manuscritos com filtros por tipo e dificuldade
+        ├── GuideDetail.tsx      # Leitura estruturada, avaliação interativa e comentários
+        ├── CreateGuide.tsx      # Ateliê de escritura para publicação de novos guias
+        ├── Login.tsx            # Portal da guilda com acesso rápido em 1 clique
+        ├── Register.tsx         # Cadastro de novo cavaleiro
+        └── Profile.tsx          # Perfil do jogador com bio editável e histórico
 ```
 
 ---
 
-## ⚡ Como Iniciar o Projeto
+## ⚡ Como Executar o Projeto Localmente
 
 ### Pré-requisitos
-- Node.js instalado (v18 ou superior)
-- npm ou yarn
+- **Node.js** (versão 18 ou superior)
+- **npm** (ou yarn / pnpm)
 
-### Passos de Instalação e Execução
+### Passo a Passo
 
-1. **Instalar as dependências** (caso ainda não tenha feito):
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/JohnathanVF/PROJETOS-IA.git
+   cd PROJETOS-IA
+   ```
+
+2. **Instale as dependências**:
    ```bash
    npm install
    ```
 
-2. **Iniciar o servidor de desenvolvimento**:
+3. **Inicie o servidor de desenvolvimento**:
    ```bash
    npm run dev
    ```
-   Acesse a aplicação no navegador em: `http://localhost:5173`
+   Acesse a aplicação em seu navegador através do endereço: **`http://localhost:5173`**
 
-3. **Gerar build de produção**:
+4. **Gerar o build de produção**:
    ```bash
    npm run build
    ```
 
-4. **Pré-visualizar o build de produção**:
+5. **Visualizar a versão de produção**:
    ```bash
    npm run preview
    ```
 
 ---
 
-## ✨ Funcionalidades Prontas e Entregues
+## 🗺️ Visão de Futuro: Conexão com Banco de Dados em Produção
 
-1. **Página Inicial Gamer (Home)**:
-   - Hero dinâmico com iluminação neon, estatísticas e barra de busca instantânea.
-   - Vitrine de jogos em destaque e guias mais bem avaliados pela comunidade.
-   - Chamadas diretas para publicação de novos guias.
+O projeto foi intencionalmente construído com uma camada desacoplada via `Context API` e `LocalStorage`, permitindo que qualquer pessoa teste o projeto completo sem precisar configurar credenciais externas.
 
-2. **Catálogo de Jogos com Filtros & Busca**:
-   - Busca em tempo real por título, desenvolvedor ou gênero.
-   - Filtros por plataformas (PC, PlayStation 5, Xbox Series X/S, Nintendo Switch).
-   - Filtros por gêneros e ordenação por nota da comunidade, nome (A-Z) ou ano de lançamento.
-
-3. **Página Exclusiva para Cada Jogo (`/games/:id`)**:
-   - Banner cinematográfico, capa em alta resolução e ficha técnica (desenvolvedora, ano, notas Metacritic e de usuários).
-   - Sinopse completa do jogo.
-   - Aba com todos os guias da comunidade filtrados exclusivamente para aquele título e atalho para criar novo guia.
-
-4. **Fórum Comunitário de Guias (`/guides`)**:
-   - Feed completo de guias com filtros cruzados (Jogo, Categoria, Dificuldade e Ordenação por estrelas ou visualizações).
-   - Categorias especializadas: *Detonado Completo*, *Builds & Equipamentos*, *Chefes & Bosses*, *Dicas & Truques*, *Segredos & Conquistas*.
-
-5. **Página de Leitura de Guia com Avaliação por Estrelas (`/guides/:id`)**:
-   - Conteúdo estruturado por tópicos com blocos de "Dica de Especialista" (*Pro-tips*).
-   - **Sistema interativo de avaliação de 1 a 5 estrelas**:
-     - O usuário pode votar ou atualizar seu voto com cálculo imediato da nova média ponderada.
-     - Indicador da sua nota pessoal e quantidade total de votos.
-   - Fórum de comentários integrado para dúvidas e discussões em tempo real.
-   - Botão para copiar link de compartilhamento.
-
-6. **Editor e Publicador de Guias (`/create-guide`)**:
-   - Seleção do jogo correspondente na biblioteca.
-   - Definição de categoria, nível de dificuldade, tempo de leitura e resumo.
-   - Adição dinâmica de seções com títulos, instruções e dicas destacadas.
-   - Publicação instantânea que fica disponível imediatamente no feed e na página do jogo.
-
-7. **Páginas de Login & Cadastro (`/login` e `/register`)**:
-   - Interface gamer estilizada com validação de campos.
-   - Seletor de 1 clique para alternar entre contas de teste pré-configuradas (*GamerZero*, *ValkyrieQueen*, *NeoSamurai*).
-   - Cadastro de novos membros com geração automática de avatar.
-
-8. **Perfil de Usuário (`/profile`)**:
-   - Painel do jogador com bio editável, contagem de guias publicados e média de estrelas recebidas.
-   - Lista gerenciável de todas as publicações do usuário logado.
+Para migração a um ambiente de produção multiusuário:
+- **Autenticação**: Conectar o [AuthContext.tsx](src/context/AuthContext.tsx) ao **Supabase Auth**, **Firebase** ou backend próprio com JWT.
+- **Banco Relacional**: Criar tabelas em **PostgreSQL** correspondentes às interfaces em [src/types/index.ts](src/types/index.ts) (`games`, `guides`, `guide_ratings` com chave única composta `[guide_id, user_id]` e `guide_comments`).
+- **Endpoints de API**: Substituir as funções em [GameGuideContext.tsx](src/context/GameGuideContext.tsx) por chamadas assíncronas `fetch` / `axios`.
 
 ---
 
-## 🔌 Transparência: Camada Local vs. Banco de Dados em Produção
+## 👤 Autor
 
-Para que o projeto funcione **100% de forma imediata e sem dependências externas de chaves de API**, todas as operações utilizam uma camada de dados reativa com persistência no `LocalStorage`:
-- Autenticação e sessões de usuários;
-- Adição de novos guias;
-- Votos e cálculo de médias das avaliações de 1 a 5 estrelas;
-- Comentários em guias;
-- Atualização de biografia do perfil.
+Desenvolvido por **[JohnathanVF](https://github.com/JohnathanVF)**.
 
-### Como conectar a um Banco de Dados Real em Produção:
-Quando desejar migrar para produção com backend compartilhado entre múltiplos usuários remotos:
-- **Autenticação**: Substituir as chamadas de `AuthContext.tsx` pelo SDK do **Supabase Auth**, **Firebase Authentication** ou sua API REST com tokens JWT.
-- **Banco de Dados Relacional**: Criar tabelas correspondentes às interfaces em `src/types/index.ts` em **PostgreSQL / MySQL** (usando Prisma, Drizzle ou Supabase):
-  - Tabela `games` (`id`, `title`, `slug`, `cover_image`, `banner_image`, `release_year`, etc.)
-  - Tabela `guides` (`id`, `game_id`, `author_id`, `title`, `slug`, `category`, `difficulty`, `content_json`, etc.)
-  - Tabela `guide_ratings` (`id`, `guide_id`, `user_id`, `rating`, `created_at` com restrição UNIQUE em `[guide_id, user_id]`)
-  - Tabela `guide_comments` (`id`, `guide_id`, `user_id`, `content`, `created_at`)
-- **API**: Substituir os métodos de escrita em `GameGuideContext.tsx` por requisições `fetch` / `axios` ou chamadas diretas ao cliente do banco de dados.
+---
 
+<div align="center">
+  <sub>Forjado sob o fogo da dedicação e da sabedoria gamer. Distribuído sob a licença MIT.</sub>
+</div>
