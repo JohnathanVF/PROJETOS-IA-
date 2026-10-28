@@ -100,8 +100,8 @@ games_guides/
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/JohnathanVF/PROJETOS-IA.git
-   cd PROJETOS-IA
+   git clone https://github.com/JohnathanVF/PROJETOS-IA-.git
+   cd PROJETOS-IA-
    ```
 
 2. **Instale as dependências**:
