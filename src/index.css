@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#0a0d14] text-slate-100 font-sans antialiased overflow-x-hidden;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-gamer {
+    font-family: 'Rajdhani', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Custom gamer scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d121f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #233054;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Glow effects */
+.glow-purple {
+  box-shadow: 0 0 25px -4px rgba(124, 58, 237, 0.45);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.45);
+}
+
+.glow-card:hover {
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.35);
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+/* Background grid pattern */
+.bg-grid-pattern {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
